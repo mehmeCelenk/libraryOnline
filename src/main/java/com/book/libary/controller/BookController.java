@@ -70,7 +70,7 @@ public class BookController {
     @GetMapping("/list/{title}")
     @AllowAll
     @Transactional
-    public ResponseEntity<List<BookResponse>> listBookStatus(@PathVariable String title) {
+    public ResponseEntity<List<BookResponse>> listBookTitle(@PathVariable String title) {
         return ResponseEntity.ok(this.bookListService.searchByTitle(title));
     }
 
