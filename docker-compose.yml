@@ -1,0 +1,50 @@
+
+version: '3.8'
+
+services:
+  redisdb:
+    image: "redis"
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - shared-net
+
+
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres_db
+    environment:
+      POSTGRES_DB: book
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 65263
+    ports:
+      - "5433:5432"
+    networks:
+      - shared-net
+    restart: always
+
+  app:
+    image: lib
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+    environment:
+      - spring.datasource.url=jdbc:postgresql://localhost:5432/book
+      - SERVER_PORT=8082
+      - spring.datasource.username=postgres
+      - spring.datasource.password=65263
+      - spring.redis.host=redis
+      - spring.redis.port=6379
+    restart: always
+    networks:
+      - shared-net
+
+networks:
+  shared-net:
+    driver: bridge
