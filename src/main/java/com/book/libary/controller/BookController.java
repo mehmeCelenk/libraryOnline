@@ -48,28 +48,24 @@ public class BookController {
 
     @GetMapping
     @AllowAll
-    @Transactional
     public ResponseEntity<List<BookResponse>> listBook(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         return ResponseEntity.ok(bookListService.listBooks(page, size));
     }
 
     @GetMapping("/list/{categoryName}")
     @AllowAll
-    @Transactional
     public ResponseEntity<List<BookResponse>> listByCategory(@PathVariable Category categoryName) {
         return ResponseEntity.ok(this.bookListService.searchByCategory(categoryName));
     }
 
     @GetMapping("/list/{bookStatus}")
     @Authenticated
-    @Transactional
     public ResponseEntity<List<BookResponse>> listBookStatus(@PathVariable BookStatus bookStatus) {
         return ResponseEntity.ok(this.bookListService.searchByBookStatus(bookStatus));
     }
 
     @GetMapping("/list/{title}")
     @AllowAll
-    @Transactional
     public ResponseEntity<List<BookResponse>> listBookTitle(@PathVariable String title) {
         return ResponseEntity.ok(this.bookListService.searchByTitle(title));
     }

@@ -37,7 +37,6 @@ public class CategoryController {
 
     @GetMapping("/getall")
     @AllowAll
-    @Transactional
     public ResponseEntity<List<GetAllCategoryResponse>> getAll(){
         return ResponseEntity.ok(this.categoryService.getAll());
     }

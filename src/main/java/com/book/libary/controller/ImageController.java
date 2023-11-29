@@ -6,6 +6,7 @@ import com.book.libary.repository.BookRepository;
 import com.book.libary.security.Authenticated;
 import com.book.libary.service.ImageService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,7 @@ public class ImageController {
     // add image - post
     @PostMapping("/add")
     @Authenticated
+    @Transactional
     public String addImagePost(HttpServletRequest request, @RequestParam("image") MultipartFile file, Long bookId) throws IOException, SerialException, SQLException {
         byte[] bytes = file.getBytes();
         Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
