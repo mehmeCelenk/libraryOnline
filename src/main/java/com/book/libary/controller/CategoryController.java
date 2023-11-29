@@ -26,8 +26,8 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @PostMapping
-    @AllowAll
+    @PostMapping("/save")
+    @Authenticated
     @Transactional
     public ResponseEntity<CategoryResponse> saveCategory(@RequestBody SaveCategoryRequest saveCategoryRequest){
         return ResponseEntity

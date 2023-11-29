@@ -37,7 +37,7 @@ public class BookController {
 
 
     @PostMapping("/save")
-    @AllowAll
+    @Authenticated
     @Transactional
     public ResponseEntity<BookListItemResponse> saveBook(@Valid @RequestBody SaveBookRequset saveBookRequest) throws SQLException, IOException {
         return ResponseEntity

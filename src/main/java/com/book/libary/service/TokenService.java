@@ -1,5 +1,6 @@
 package com.book.libary.service;
 
+import com.book.libary.exception.TokenNotFoundException;
 import com.book.libary.model.entity.AuthorizationToken;
 import com.book.libary.model.entity.User;
 import com.book.libary.repository.AuthorizationTokenRepository;
@@ -34,7 +35,7 @@ public class TokenService {
     }
 
     public AuthorizationToken getTokenOrFail(final String token)  {
-        final AuthorizationToken authorizationToken = authorizationTokenRepository.getByToken(token).orElseThrow();
+        final AuthorizationToken authorizationToken = authorizationTokenRepository.findByToken(token).orElseThrow(() -> new TokenNotFoundException("Token bulunamadı"));
 
         if(authorizationToken.getExpireAt().compareTo(new Date()) < 0){
             return null;
