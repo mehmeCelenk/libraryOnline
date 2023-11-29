@@ -46,23 +46,10 @@ public class UserController {
         return userService.createUser(createUserRequest);
     }
 
-    @GetMapping("/hello")
-    @Authenticated
-    @Transactional
-    public String hello(){
-        return "Hello login";
-    }
-
     @GetMapping("/current_user")
     @Authenticated
     public UserResponse getCurrentUser() {
         return new UserResponse(securityContext.getCurrentUser());
     }
 
-    @GetMapping("/hellonoLogin")
-    @AllowAll
-    @Transactional
-    public String hellonoLogin(){
-        return "sa";
-    }
 }
